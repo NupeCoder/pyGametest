@@ -17,6 +17,7 @@ while 1:
     for event in pg.event.get():
         if event.type == pg.QUIT: sys.exit()
 
+
         if event.type == pg.KEYDOWN:
             if event.key == (pg.K_RIGHT):
                 position[0] += 10
@@ -25,13 +26,12 @@ while 1:
                 position[0] -= 10
                 print('left')
             if event.key == (pg.K_UP):
-                max = 20
-                jump = 0
-                while jump < max:
-                    position[1] -= jump
-                    jump += 4
+                position[1] -= 20
                 print('up')
+    
+    if position[1] < 200:
+        pg.time.wait(500)
+        position[1] += 5
 
     display.blit(ball, position)
-
     pg.display.flip()
