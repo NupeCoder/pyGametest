@@ -27,6 +27,7 @@ class Mario(object):
         self.image = pg.image.load(mario)
 
 
+
     def move(self, x, y):
         self.position[0] += x
         self.position[1] += y
@@ -61,7 +62,7 @@ class Run(object):
                 self.player.image = self.player.right[self.player.current]
                 for i in range(len(self.player.right)-1):
                     self.player.current += 1
-                    print(self.player.current)
+                
                     
                 if self.player.current >= (len(self.player.right)):
                     self.player.current = 0
@@ -72,10 +73,11 @@ class Run(object):
                 self.player.image = self.player.left[self.player.current]
                 for i in range(len(self.player.left)-1):
                     self.player.current += 1
-                    print(self.player.current)
+
                     
                 if self.player.current >= (len(self.player.left)):
                     self.player.current = 0
+
 
             if self.player.position[1] < 200:
                 pg.time.wait(50)
