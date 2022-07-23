@@ -3,14 +3,14 @@ pg.init()
 
 screen = width, height = 400, 400
 white = [255, 255, 255]
-mario = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile007.png' 
-right1 = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile008.png'
-right2 = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile009.png'
-rightjump = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile010.png'
-left1 = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile004.png'
-left2 = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile003.png'
-left3 = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile002.png'
-leftjump = 'C:\\Users\\zaffar\\.vscode\\Pygame\\Mario sprites\\tile001.png'
+mario = 'Mario sprites\\tile007.png' 
+right1 = 'Mario sprites\\tile008.png'
+right2 = 'Mario Sprites\\tile009.png'
+rightjump = 'Mario sprites\\tile010.png'
+left1 = 'Mario sprites\\tile004.png'
+left2 = 'Mario sprites\\tile003.png'
+left3 = 'Mario sprites\\tile002.png'
+leftjump = 'Mario sprites\\tile001.png'
 
 class Mario(object):
     def __init__(self):
@@ -25,6 +25,7 @@ class Mario(object):
         self.left.append(pg.image.load(left2))
         self.left.append(pg.image.load(left3))
         self.image = pg.image.load(mario)
+        self.rect = self.image.get_rect()
 
 
 
