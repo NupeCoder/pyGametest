@@ -1,16 +1,25 @@
 import sys, pygame as pg
+from pathlib import Path
+
+# Initialize pygame
 pg.init()
 
+# Base home directory for sprites
+base_home_dir = Path(__file__).parent / 'Mario sprites'
+
+# Set default screen & window sizes
 screen = width, height = 400, 400
 white = [255, 255, 255]
-mario = 'Mario sprites\\tile007.png' 
-right1 = 'Mario sprites\\tile008.png'
-right2 = 'Mario Sprites\\tile009.png'
-rightjump = 'Mario sprites\\tile010.png'
-left1 = 'Mario sprites\\tile004.png'
-left2 = 'Mario sprites\\tile003.png'
-left3 = 'Mario sprites\\tile002.png'
-leftjump = 'Mario sprites\\tile001.png'
+
+# Load up sprites from base directory
+mario = Path(base_home_dir) / 'tile007.png' 
+right1 = Path(base_home_dir) /'tile008.png'
+right2 = Path(base_home_dir) /'tile009.png'
+rightjump = Path(base_home_dir) / 'tile010.png'
+left1 = Path(base_home_dir) / 'tile004.png'
+left2 = Path(base_home_dir) / 'tile003.png'
+left3 = Path(base_home_dir) / 'tile002.png'
+leftjump = Path(base_home_dir) / 'tile001.png'
 
 class Mario(object):
     def __init__(self):
