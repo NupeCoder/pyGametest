@@ -1,6 +1,7 @@
 import sys, pygame as pg
 from Player import Mario
 from Enemy import Bullet
+import random
 
 time = pg.time.get_ticks()
 pg.init()
@@ -19,22 +20,22 @@ class Run(object):
         self.enemy = Bullet()
         self.clock = pg.time.Clock()
         self.firsttime = pg.time.get_ticks()
-        self.newbullet = False
-
-
-    def bulletspawner(self):
-        if self.newbullet == True:
-            b = Bullet()
-            b.draw(self.screen)
 
 
     def run(self):
         run = True
+
         jump = False
         fall = False
-        boost = 10
+        flipup = False
+        flipdown = False
+        flip = False
+        boost = 10 
+        randomLocation  =  [ [200, 350], [400,200], [0, 200], [200, 0] ]
+        
         while run:
             
+            positions = random.choice(randomLocation)
             self.clock.tick(10)
             keys = pg.key.get_pressed()
             for event in pg.event.get():
@@ -74,14 +75,38 @@ class Run(object):
                 if boost == 0:
                     fall = False
                     boost = 10
+            
+            if flipup == True:
+                self.enemy.image = pg.transform.rotate(self.enemy.image, -90)
+                self.enemy.movey()
+
+            if flipdown == True:
+                self.enemy.image = pg.transform.rotate(self.enemy.image, 90)
+                self.enemy.moveydown()
+
+            if flip == True:
+                self.enemy.image = pg.transform.flip(self.enemy.image, True, False)
+                self.enemy.movexright()
 
             self.screen.fill(white)
             #  if int(pg.time.get_ticks()/1000) % 5 == 0:  code to do something every 5 seconds
-            self.enemy.draw(self.screen)
+            
             pg.draw.line(self.screen, [0,0,0], [0,228], [400,228], 3)
-            if self.enemy.rect.x <= 0:
-                self.enemy.rect.x, self.enemy.rect.y = 400, 200
-                self.newbullet = True
+            if self.enemy.rect.x  in [0,400] or self.enemy.rect.y in [0,400]:
+                self.enemy.rect.x, self.enemy.rect.y = positions[0], positions[1]
+                
+                flipup = False
+                flipdown = False
+                flip = False
+                self.enemy.reset()
+                if positions[0] < 200:
+                    flip = True
+                if positions[1] < 200:
+                    flipdown = True
+                if positions[1] > 200:
+                    flipup = True
+
+            self.enemy.draw(self.screen)
             self.player.draw(self.screen)
             if self.player.rect.colliderect(self.enemy.rect):
                 pg.draw.rect(self.screen, [255, 0, 0], self.player.rect, 4)
