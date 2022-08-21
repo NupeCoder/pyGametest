@@ -18,26 +18,25 @@ class Bullet(object):
         self.animation.append((bullet2))
         self.animation.append((bullet3))
         self.animation.append((bullet4))
-        self.image = self.animation[self.current]
+        self.image = bullet1
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 200
         
     def movex(self):
-        self.rect.x -= 5
+        self.rect.x -= 10
 
     def movexright(self):
-        self.rect.x += 5
+        self.rect.x += 10
 
 
     def movey(self):
-        self.rect.y -= 5
+        self.rect.y -= 10
 
     def moveydown(self):
-        self.rect.y += 5
+        self.rect.y += 10
 
     def animate(self):
-        print(self.rect.x, self.rect.y)
         if self.xmove == True:
             self.movex()
         if self.ymove == True:

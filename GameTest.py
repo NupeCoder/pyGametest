@@ -5,12 +5,14 @@ import random
 
 time = pg.time.get_ticks()
 pg.init()
+pg.font.init()
 
 
 screen = width, height = 400, 400
 white = [255, 255, 255]
 leftjump = 'Pygame\\Mario sprites\\tile001.png'
 rightjump = 'Pygame\\Mario sprites\\tile010.png'
+
     
 
 class Run(object):
@@ -20,6 +22,22 @@ class Run(object):
         self.enemy = Bullet()
         self.clock = pg.time.Clock()
         self.firsttime = pg.time.get_ticks()
+        self.font = pg.font.SysFont('comicsansms', 20)
+        pg.display.update()
+        self.score = 0
+
+    def finish(self):
+        finish = True
+
+        while finish == True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    sys.exit()
+            
+            self.screen.fill(white)
+            self.screen.blit(pg.font.Font.render(self.font, 'GAME OVER', True, (0,0,0)), [200,100])
+            pg.display.flip()
+            
 
 
     def run(self):
@@ -31,9 +49,9 @@ class Run(object):
         flipdown = False
         flip = False
         boost = 10 
-        randomLocation  =  [ [200, 350], [400,200], [0, 200], [200, 0] ]
+        randomLocation  =  [ [200, 400], [400,200], [0, 200], [200, 0] ]
         
-        while run:
+        while run == True:
             
             positions = random.choice(randomLocation)
             self.clock.tick(10)
@@ -78,10 +96,14 @@ class Run(object):
             
             if flipup == True:
                 self.enemy.image = pg.transform.rotate(self.enemy.image, -90)
+                self.enemy.rect.width = 20
+                self.enemy.rect.height = 40
                 self.enemy.movey()
 
             if flipdown == True:
                 self.enemy.image = pg.transform.rotate(self.enemy.image, 90)
+                self.enemy.rect.width = 20
+                self.enemy.rect.height = 40
                 self.enemy.moveydown()
 
             if flip == True:
@@ -92,7 +114,9 @@ class Run(object):
             #  if int(pg.time.get_ticks()/1000) % 5 == 0:  code to do something every 5 seconds
             
             pg.draw.line(self.screen, [0,0,0], [0,228], [400,228], 3)
+            self.screen.blit(pg.font.Font.render(self.font, str(self.score), True, (0,0,0)), [200,100])
             if self.enemy.rect.x  in [0,400] or self.enemy.rect.y in [0,400]:
+                self.score += 1
                 self.enemy.rect.x, self.enemy.rect.y = positions[0], positions[1]
                 
                 flipup = False
@@ -110,9 +134,10 @@ class Run(object):
             self.player.draw(self.screen)
             if self.player.rect.colliderect(self.enemy.rect):
                 pg.draw.rect(self.screen, [255, 0, 0], self.player.rect, 4)
+                pg.draw.rect(self.screen, [255, 0, 0], self.enemy.rect, 4)
+                #self.finish()
+                #run = False
                 
-
-            
             pg.display.flip()
 
 g = Run()
